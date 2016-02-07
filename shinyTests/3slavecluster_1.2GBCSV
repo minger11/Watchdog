@@ -1,0 +1,161 @@
+Performed on 3 slave cluster
+Using a 1.2GB CSV file (10 million lines) from S3n
+
+Took 75 seconds to load the file as a dataframe
+3-4 second load times when changing specie type in the shiny app
+
+> data <- read.df(sqlContext, "s3n://AWSACCESSKEY:AWSSECRETACCESSKEY@testunewatch/watchdog-data.csv", source = "com.databricks.spark.csv", inferSchema = "true", header="true")
+16/02/06 19:00:36 INFO storage.MemoryStore: Block broadcast_0 stored as values in memory (estimated size 46.3 KB, free 46.3 KB)
+16/02/06 19:00:36 INFO storage.MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 4.4 KB, free 50.7 KB)
+16/02/06 19:00:36 INFO storage.BlockManagerInfo: Added broadcast_0_piece0 in memory on 172.31.5.96:48138 (size: 4.4 KB, free: 511.5 MB)
+16/02/06 19:00:36 INFO spark.SparkContext: Created broadcast 0 from textFile at TextFile.scala:30
+16/02/06 19:00:36 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+16/02/06 19:00:36 WARN snappy.LoadSnappy: Snappy native library not loaded
+16/02/06 19:00:37 INFO mapred.FileInputFormat: Total input paths to process : 1
+16/02/06 19:00:37 INFO spark.SparkContext: Starting job: take at CsvRelation.scala:249
+16/02/06 19:00:37 INFO scheduler.DAGScheduler: Got job 0 (take at CsvRelation.scala:249) with 1 output partitions
+16/02/06 19:00:37 INFO scheduler.DAGScheduler: Final stage: ResultStage 0 (take at CsvRelation.scala:249)
+16/02/06 19:00:37 INFO scheduler.DAGScheduler: Parents of final stage: List()
+16/02/06 19:00:37 INFO scheduler.DAGScheduler: Missing parents: List()
+16/02/06 19:00:37 INFO scheduler.DAGScheduler: Submitting ResultStage 0 (MapPartitionsRDD[1] at textFile at TextFile.scala:30), which has no missing parents
+16/02/06 19:00:37 INFO storage.MemoryStore: Block broadcast_1 stored as values in memory (estimated size 3.1 KB, free 53.9 KB)
+16/02/06 19:00:37 INFO storage.MemoryStore: Block broadcast_1_piece0 stored as bytes in memory (estimated size 1903.0 B, free 55.7 KB)
+16/02/06 19:00:37 INFO storage.BlockManagerInfo: Added broadcast_1_piece0 in memory on 172.31.5.96:48138 (size: 1903.0 B, free: 511.5 MB)
+16/02/06 19:00:37 INFO spark.SparkContext: Created broadcast 1 from broadcast at DAGScheduler.scala:1006
+16/02/06 19:00:37 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 0 (MapPartitionsRDD[1] at textFile at TextFile.scala:30)
+16/02/06 19:00:37 INFO scheduler.TaskSchedulerImpl: Adding task set 0.0 with 1 tasks
+16/02/06 19:00:37 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 0.0 (TID 0, ip-172-31-4-179.ap-southeast-2.compute.internal, partition 0,PROCESS_LOCAL, 2439 bytes)
+16/02/06 19:00:38 INFO storage.BlockManagerInfo: Added broadcast_1_piece0 in memory on ip-172-31-4-179.ap-southeast-2.compute.internal:50859 (size: 1903.0 B, free: 4.1 GB)
+16/02/06 19:00:38 INFO storage.BlockManagerInfo: Added broadcast_0_piece0 in memory on ip-172-31-4-179.ap-southeast-2.compute.internal:50859 (size: 4.4 KB, free: 4.1 GB)
+16/02/06 19:00:42 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 0.0 (TID 0) in 4190 ms on ip-172-31-4-179.ap-southeast-2.compute.internal (1/1)
+16/02/06 19:00:42 INFO scheduler.DAGScheduler: ResultStage 0 (take at CsvRelation.scala:249) finished in 4.200 s
+16/02/06 19:00:42 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool 
+16/02/06 19:00:42 INFO scheduler.DAGScheduler: Job 0 finished: take at CsvRelation.scala:249, took 4.320904 s
+16/02/06 19:00:43 INFO storage.MemoryStore: Block broadcast_2 stored as values in memory (estimated size 26.5 KB, free 82.2 KB)
+16/02/06 19:00:43 INFO storage.MemoryStore: Block broadcast_2_piece0 stored as bytes in memory (estimated size 5.6 KB, free 87.9 KB)
+16/02/06 19:00:43 INFO storage.BlockManagerInfo: Added broadcast_2_piece0 in memory on 172.31.5.96:48138 (size: 5.6 KB, free: 511.5 MB)
+16/02/06 19:00:43 INFO spark.SparkContext: Created broadcast 2 from textFile at TextFile.scala:30
+16/02/06 19:00:43 INFO mapred.FileInputFormat: Total input paths to process : 1
+16/02/06 19:00:43 INFO spark.SparkContext: Starting job: aggregate at InferSchema.scala:36
+16/02/06 19:00:43 INFO scheduler.DAGScheduler: Got job 1 (aggregate at InferSchema.scala:36) with 2 output partitions
+16/02/06 19:00:43 INFO scheduler.DAGScheduler: Final stage: ResultStage 1 (aggregate at InferSchema.scala:36)
+16/02/06 19:00:43 INFO scheduler.DAGScheduler: Parents of final stage: List()
+16/02/06 19:00:43 INFO scheduler.DAGScheduler: Missing parents: List()
+16/02/06 19:00:43 INFO scheduler.DAGScheduler: Submitting ResultStage 1 (MapPartitionsRDD[4] at mapPartitions at CsvRelation.scala:90), which has no missing parents
+16/02/06 19:00:43 INFO storage.MemoryStore: Block broadcast_3 stored as values in memory (estimated size 6.1 KB, free 93.9 KB)
+16/02/06 19:00:43 INFO storage.MemoryStore: Block broadcast_3_piece0 stored as bytes in memory (estimated size 3.5 KB, free 97.5 KB)
+16/02/06 19:00:43 INFO storage.BlockManagerInfo: Added broadcast_3_piece0 in memory on 172.31.5.96:48138 (size: 3.5 KB, free: 511.5 MB)
+16/02/06 19:00:43 INFO spark.SparkContext: Created broadcast 3 from broadcast at DAGScheduler.scala:1006
+16/02/06 19:00:43 INFO scheduler.DAGScheduler: Submitting 2 missing tasks from ResultStage 1 (MapPartitionsRDD[4] at mapPartitions at CsvRelation.scala:90)
+16/02/06 19:00:43 INFO scheduler.TaskSchedulerImpl: Adding task set 1.0 with 2 tasks
+16/02/06 19:00:43 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 1.0 (TID 1, ip-172-31-4-178.ap-southeast-2.compute.internal, partition 0,PROCESS_LOCAL, 2439 bytes)
+16/02/06 19:00:43 INFO scheduler.TaskSetManager: Starting task 1.0 in stage 1.0 (TID 2, ip-172-31-4-179.ap-southeast-2.compute.internal, partition 1,PROCESS_LOCAL, 2439 bytes)
+16/02/06 19:00:43 INFO storage.BlockManagerInfo: Added broadcast_3_piece0 in memory on ip-172-31-4-179.ap-southeast-2.compute.internal:50859 (size: 3.5 KB, free: 4.1 GB)
+16/02/06 19:00:43 INFO storage.BlockManagerInfo: Added broadcast_2_piece0 in memory on ip-172-31-4-179.ap-southeast-2.compute.internal:50859 (size: 5.6 KB, free: 4.1 GB)
+16/02/06 19:00:44 INFO storage.BlockManagerInfo: Added broadcast_3_piece0 in memory on ip-172-31-4-178.ap-southeast-2.compute.internal:60514 (size: 3.5 KB, free: 4.1 GB)
+16/02/06 19:00:44 INFO storage.BlockManagerInfo: Added broadcast_2_piece0 in memory on ip-172-31-4-178.ap-southeast-2.compute.internal:60514 (size: 5.6 KB, free: 4.1 GB)
+16/02/06 19:01:56 INFO scheduler.TaskSetManager: Finished task 1.0 in stage 1.0 (TID 2) in 72586 ms on ip-172-31-4-179.ap-southeast-2.compute.internal (1/2)
+16/02/06 19:01:59 INFO scheduler.DAGScheduler: ResultStage 1 (aggregate at InferSchema.scala:36) finished in 75.940 s
+16/02/06 19:01:59 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 1.0 (TID 1) in 75940 ms on ip-172-31-4-178.ap-southeast-2.compute.internal (2/2)
+16/02/06 19:01:59 INFO scheduler.DAGScheduler: Job 1 finished: aggregate at InferSchema.scala:36, took 75.961977 s
+16/02/06 19:01:59 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 1.0, whose tasks have all completed, from pool 
+
+> shiny::runApp('shinyApp')
+
+Listening on http://127.0.0.1:3824
+16/02/06 19:12:08 INFO storage.MemoryStore: Block broadcast_12 stored as values in memory (estimated size 88.2 KB, free 530.4 KB)
+16/02/06 19:12:08 INFO storage.MemoryStore: Block broadcast_12_piece0 stored as bytes in memory (estimated size 5.6 KB, free 536.1 KB)
+16/02/06 19:12:08 INFO storage.BlockManagerInfo: Added broadcast_12_piece0 in memory on 172.31.5.96:48138 (size: 5.6 KB, free: 511.4 MB)
+16/02/06 19:12:08 INFO spark.SparkContext: Created broadcast 12 from textFile at TextFile.scala:30
+16/02/06 19:12:09 INFO mapred.FileInputFormat: Total input paths to process : 1
+16/02/06 19:12:09 INFO spark.SparkContext: Starting job: dfToCols at NativeMethodAccessorImpl.java:-2
+16/02/06 19:12:09 INFO scheduler.DAGScheduler: Got job 6 (dfToCols at NativeMethodAccessorImpl.java:-2) with 1 output partitions
+16/02/06 19:12:09 INFO scheduler.DAGScheduler: Final stage: ResultStage 6 (dfToCols at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:12:09 INFO scheduler.DAGScheduler: Parents of final stage: List()
+16/02/06 19:12:09 INFO scheduler.DAGScheduler: Missing parents: List()
+16/02/06 19:12:09 INFO scheduler.DAGScheduler: Submitting ResultStage 6 (MapPartitionsRDD[39] at dfToCols at NativeMethodAccessorImpl.java:-2), which has no missing parents
+16/02/06 19:12:09 INFO storage.MemoryStore: Block broadcast_13 stored as values in memory (estimated size 11.0 KB, free 547.0 KB)
+16/02/06 19:12:09 INFO storage.MemoryStore: Block broadcast_13_piece0 stored as bytes in memory (estimated size 5.8 KB, free 552.8 KB)
+16/02/06 19:12:09 INFO storage.BlockManagerInfo: Added broadcast_13_piece0 in memory on 172.31.5.96:48138 (size: 5.8 KB, free: 511.4 MB)
+16/02/06 19:12:09 INFO spark.SparkContext: Created broadcast 13 from broadcast at DAGScheduler.scala:1006
+16/02/06 19:12:09 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 6 (MapPartitionsRDD[39] at dfToCols at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:12:09 INFO scheduler.TaskSchedulerImpl: Adding task set 6.0 with 1 tasks
+16/02/06 19:12:09 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 6.0 (TID 7, ip-172-31-4-178.ap-southeast-2.compute.internal, partition 0,PROCESS_LOCAL, 2439 bytes)
+16/02/06 19:12:09 INFO storage.BlockManagerInfo: Added broadcast_13_piece0 in memory on ip-172-31-4-178.ap-southeast-2.compute.internal:60514 (size: 5.8 KB, free: 4.1 GB)
+16/02/06 19:12:09 INFO storage.BlockManagerInfo: Added broadcast_12_piece0 in memory on ip-172-31-4-178.ap-southeast-2.compute.internal:60514 (size: 5.6 KB, free: 4.1 GB)
+16/02/06 19:12:12 INFO scheduler.DAGScheduler: ResultStage 6 (dfToCols at NativeMethodAccessorImpl.java:-2) finished in 3.053 s
+16/02/06 19:12:12 INFO scheduler.DAGScheduler: Job 6 finished: dfToCols at NativeMethodAccessorImpl.java:-2, took 3.072894 s
+16/02/06 19:12:12 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 6.0 (TID 7) in 3053 ms on ip-172-31-4-178.ap-southeast-2.compute.internal (1/1)
+16/02/06 19:12:12 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 6.0, whose tasks have all completed, from pool 
+16/02/06 19:12:12 INFO storage.MemoryStore: Block broadcast_14 stored as values in memory (estimated size 88.2 KB, free 641.0 KB)
+16/02/06 19:12:12 INFO storage.MemoryStore: Block broadcast_14_piece0 stored as bytes in memory (estimated size 5.6 KB, free 646.7 KB)
+16/02/06 19:12:12 INFO storage.BlockManagerInfo: Added broadcast_14_piece0 in memory on 172.31.5.96:48138 (size: 5.6 KB, free: 511.4 MB)
+16/02/06 19:12:12 INFO spark.SparkContext: Created broadcast 14 from textFile at TextFile.scala:30
+16/02/06 19:12:13 INFO mapred.FileInputFormat: Total input paths to process : 1
+16/02/06 19:12:13 INFO spark.SparkContext: Starting job: count at NativeMethodAccessorImpl.java:-2
+16/02/06 19:12:13 INFO scheduler.DAGScheduler: Registering RDD 48 (count at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:12:13 INFO scheduler.DAGScheduler: Got job 7 (count at NativeMethodAccessorImpl.java:-2) with 1 output partitions
+16/02/06 19:12:13 INFO scheduler.DAGScheduler: Final stage: ResultStage 8 (count at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:12:13 INFO scheduler.DAGScheduler: Parents of final stage: List(ShuffleMapStage 7)
+16/02/06 19:12:13 INFO scheduler.DAGScheduler: Missing parents: List(ShuffleMapStage 7)
+16/02/06 19:12:13 INFO scheduler.DAGScheduler: Submitting ShuffleMapStage 7 (MapPartitionsRDD[48] at count at NativeMethodAccessorImpl.java:-2), which has no missing parents
+16/02/06 19:12:13 INFO storage.MemoryStore: Block broadcast_15 stored as values in memory (estimated size 15.1 KB, free 661.8 KB)
+16/02/06 19:12:13 INFO storage.MemoryStore: Block broadcast_15_piece0 stored as bytes in memory (estimated size 7.6 KB, free 669.4 KB)
+16/02/06 19:12:13 INFO storage.BlockManagerInfo: Added broadcast_15_piece0 in memory on 172.31.5.96:48138 (size: 7.6 KB, free: 511.4 MB)
+16/02/06 19:12:13 INFO spark.SparkContext: Created broadcast 15 from broadcast at DAGScheduler.scala:1006
+16/02/06 19:12:13 INFO scheduler.DAGScheduler: Submitting 2 missing tasks from ShuffleMapStage 7 (MapPartitionsRDD[48] at count at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:12:13 INFO scheduler.TaskSchedulerImpl: Adding task set 7.0 with 2 tasks
+16/02/06 19:12:13 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 7.0 (TID 8, ip-172-31-4-180.ap-southeast-2.compute.internal, partition 0,PROCESS_LOCAL, 2428 bytes)
+16/02/06 19:12:13 INFO scheduler.TaskSetManager: Starting task 1.0 in stage 7.0 (TID 9, ip-172-31-4-179.ap-southeast-2.compute.internal, partition 1,PROCESS_LOCAL, 2428 bytes)
+16/02/06 19:12:13 INFO storage.BlockManagerInfo: Added broadcast_15_piece0 in memory on ip-172-31-4-179.ap-southeast-2.compute.internal:50859 (size: 7.6 KB, free: 4.1 GB)
+16/02/06 19:12:13 INFO storage.BlockManagerInfo: Added broadcast_15_piece0 in memory on ip-172-31-4-180.ap-southeast-2.compute.internal:37137 (size: 7.6 KB, free: 4.1 GB)
+16/02/06 19:12:13 INFO storage.BlockManagerInfo: Added broadcast_14_piece0 in memory on ip-172-31-4-179.ap-southeast-2.compute.internal:50859 (size: 5.6 KB, free: 4.1 GB)
+16/02/06 19:12:13 INFO storage.BlockManagerInfo: Added broadcast_14_piece0 in memory on ip-172-31-4-180.ap-southeast-2.compute.internal:37137 (size: 5.6 KB, free: 4.1 GB)
+16/02/06 19:13:23 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 7.0 (TID 8) in 70610 ms on ip-172-31-4-180.ap-southeast-2.compute.internal (1/2)
+16/02/06 19:13:26 INFO scheduler.TaskSetManager: Finished task 1.0 in stage 7.0 (TID 9) in 72791 ms on ip-172-31-4-179.ap-southeast-2.compute.internal (2/2)
+16/02/06 19:13:26 INFO scheduler.DAGScheduler: ShuffleMapStage 7 (count at NativeMethodAccessorImpl.java:-2) finished in 72.795 s
+16/02/06 19:13:26 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 7.0, whose tasks have all completed, from pool 
+16/02/06 19:13:26 INFO scheduler.DAGScheduler: looking for newly runnable stages
+16/02/06 19:13:26 INFO scheduler.DAGScheduler: running: Set()
+16/02/06 19:13:26 INFO scheduler.DAGScheduler: waiting: Set(ResultStage 8)
+16/02/06 19:13:26 INFO scheduler.DAGScheduler: failed: Set()
+16/02/06 19:13:26 INFO scheduler.DAGScheduler: Submitting ResultStage 8 (MapPartitionsRDD[51] at count at NativeMethodAccessorImpl.java:-2), which has no missing parents
+16/02/06 19:13:26 INFO storage.MemoryStore: Block broadcast_16 stored as values in memory (estimated size 15.7 KB, free 685.1 KB)
+16/02/06 19:13:26 INFO storage.MemoryStore: Block broadcast_16_piece0 stored as bytes in memory (estimated size 8.0 KB, free 693.1 KB)
+16/02/06 19:13:26 INFO storage.BlockManagerInfo: Added broadcast_16_piece0 in memory on 172.31.5.96:48138 (size: 8.0 KB, free: 511.4 MB)
+16/02/06 19:13:26 INFO spark.SparkContext: Created broadcast 16 from broadcast at DAGScheduler.scala:1006
+16/02/06 19:13:26 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 8 (MapPartitionsRDD[51] at count at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:13:26 INFO scheduler.TaskSchedulerImpl: Adding task set 8.0 with 1 tasks
+16/02/06 19:13:26 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 8.0 (TID 10, ip-172-31-4-179.ap-southeast-2.compute.internal, partition 0,NODE_LOCAL, 2237 bytes)
+16/02/06 19:13:26 INFO storage.BlockManagerInfo: Added broadcast_16_piece0 in memory on ip-172-31-4-179.ap-southeast-2.compute.internal:50859 (size: 8.0 KB, free: 4.1 GB)
+16/02/06 19:13:26 INFO spark.MapOutputTrackerMasterEndpoint: Asked to send map output locations for shuffle 0 to ip-172-31-4-179.ap-southeast-2.compute.internal:44585
+16/02/06 19:13:26 INFO spark.MapOutputTrackerMaster: Size of output statuses for shuffle 0 is 195 bytes
+16/02/06 19:13:26 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 8.0 (TID 10) in 241 ms on ip-172-31-4-179.ap-southeast-2.compute.internal (1/1)
+16/02/06 19:13:26 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 8.0, whose tasks have all completed, from pool 
+16/02/06 19:13:26 INFO scheduler.DAGScheduler: ResultStage 8 (count at NativeMethodAccessorImpl.java:-2) finished in 0.244 s
+16/02/06 19:13:26 INFO scheduler.DAGScheduler: Job 7 finished: count at NativeMethodAccessorImpl.java:-2, took 73.095523 s
+16/02/06 19:13:29 INFO storage.MemoryStore: Block broadcast_17 stored as values in memory (estimated size 88.2 KB, free 781.3 KB)
+16/02/06 19:13:29 INFO storage.MemoryStore: Block broadcast_17_piece0 stored as bytes in memory (estimated size 5.6 KB, free 786.9 KB)
+16/02/06 19:13:29 INFO storage.BlockManagerInfo: Added broadcast_17_piece0 in memory on 172.31.5.96:48138 (size: 5.6 KB, free: 511.4 MB)
+16/02/06 19:13:29 INFO spark.SparkContext: Created broadcast 17 from textFile at TextFile.scala:30
+16/02/06 19:13:30 INFO mapred.FileInputFormat: Total input paths to process : 1
+16/02/06 19:13:30 INFO spark.SparkContext: Starting job: dfToCols at NativeMethodAccessorImpl.java:-2
+16/02/06 19:13:30 INFO scheduler.DAGScheduler: Got job 8 (dfToCols at NativeMethodAccessorImpl.java:-2) with 1 output partitions
+16/02/06 19:13:30 INFO scheduler.DAGScheduler: Final stage: ResultStage 9 (dfToCols at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:13:30 INFO scheduler.DAGScheduler: Parents of final stage: List()
+16/02/06 19:13:30 INFO scheduler.DAGScheduler: Missing parents: List()
+16/02/06 19:13:30 INFO scheduler.DAGScheduler: Submitting ResultStage 9 (MapPartitionsRDD[58] at dfToCols at NativeMethodAccessorImpl.java:-2), which has no missing parents
+16/02/06 19:13:30 INFO storage.MemoryStore: Block broadcast_18 stored as values in memory (estimated size 11.0 KB, free 797.9 KB)
+16/02/06 19:13:30 INFO storage.MemoryStore: Block broadcast_18_piece0 stored as bytes in memory (estimated size 5.8 KB, free 803.7 KB)
+16/02/06 19:13:30 INFO storage.BlockManagerInfo: Added broadcast_18_piece0 in memory on 172.31.5.96:48138 (size: 5.8 KB, free: 511.4 MB)
+16/02/06 19:13:30 INFO spark.SparkContext: Created broadcast 18 from broadcast at DAGScheduler.scala:1006
+16/02/06 19:13:30 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 9 (MapPartitionsRDD[58] at dfToCols at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:13:30 INFO scheduler.TaskSchedulerImpl: Adding task set 9.0 with 1 tasks
+16/02/06 19:13:30 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 9.0 (TID 11, ip-172-31-4-178.ap-southeast-2.compute.internal, partition 0,PROCESS_LOCAL, 2439 bytes)
+16/02/06 19:13:30 INFO storage.BlockManagerInfo: Added broadcast_18_piece0 in memory on ip-172-31-4-178.ap-southeast-2.compute.internal:60514 (size: 5.8 KB, free: 4.1 GB)
+16/02/06 19:13:30 INFO storage.BlockManagerInfo: Added broadcast_17_piece0 in memory on ip-172-31-4-178.ap-southeast-2.compute.internal:60514 (size: 5.6 KB, free: 4.1 GB)
+16/02/06 19:13:33 INFO scheduler.DAGScheduler: ResultStage 9 (dfToCols at NativeMethodAccessorImpl.java:-2) finished in 3.126 s
+16/02/06 19:13:33 INFO scheduler.DAGScheduler: Job 8 finished: dfToCols at NativeMethodAccessorImpl.java:-2, took 3.143218 s
+16/02/06 19:13:33 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 9.0 (TID 11) in 3125 ms on ip-172-31-4-178.ap-southeast-2.compute.internal (1/1)
+
+16/02/06 19:13:33 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 9.0, whose tasks have all completed, from pool 

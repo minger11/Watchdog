@@ -1,0 +1,217 @@
+Performed on a 3 slave cluster
+Using a 1.2 GB Parquet file (10 million lines) from local
+
+Took less than 1 second to load the file as a dataframe
+0.4-3.5 second load times when changing specie type in the shiny app
+
+> data <- read.parquet(sqlContext, '/temp/')
+16/02/06 19:57:59 INFO parquet.ParquetRelation: Listing hdfs://ec2-52-62-89-3.ap-southeast-2.compute.amazonaws.com:9000/temp on driver
+16/02/06 19:57:59 INFO spark.SparkContext: Starting job: parquet at NativeMethodAccessorImpl.java:-2
+16/02/06 19:57:59 INFO scheduler.DAGScheduler: Got job 0 (parquet at NativeMethodAccessorImpl.java:-2) with 6 output partitions
+16/02/06 19:57:59 INFO scheduler.DAGScheduler: Final stage: ResultStage 0 (parquet at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:57:59 INFO scheduler.DAGScheduler: Parents of final stage: List()
+16/02/06 19:57:59 INFO scheduler.DAGScheduler: Missing parents: List()
+16/02/06 19:57:59 INFO scheduler.DAGScheduler: Submitting ResultStage 0 (MapPartitionsRDD[1] at parquet at NativeMethodAccessorImpl.java:-2), which has no missing parents
+16/02/06 19:58:00 INFO storage.MemoryStore: Block broadcast_0 stored as values in memory (estimated size 12.8 KB, free 12.8 KB)
+16/02/06 19:58:00 INFO storage.MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 7.0 KB, free 19.7 KB)
+16/02/06 19:58:00 INFO storage.BlockManagerInfo: Added broadcast_0_piece0 in memory on 172.31.5.96:60972 (size: 7.0 KB, free: 511.5 MB)
+16/02/06 19:58:00 INFO spark.SparkContext: Created broadcast 0 from broadcast at DAGScheduler.scala:1006
+16/02/06 19:58:00 INFO scheduler.DAGScheduler: Submitting 6 missing tasks from ResultStage 0 (MapPartitionsRDD[1] at parquet at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:58:00 INFO scheduler.TaskSchedulerImpl: Adding task set 0.0 with 6 tasks
+16/02/06 19:58:00 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 0.0 (TID 0, ip-172-31-4-180.ap-southeast-2.compute.internal, partition 0,PROCESS_LOCAL, 2076 bytes)
+16/02/06 19:58:00 INFO scheduler.TaskSetManager: Starting task 1.0 in stage 0.0 (TID 1, ip-172-31-4-179.ap-southeast-2.compute.internal, partition 1,PROCESS_LOCAL, 2076 bytes)
+16/02/06 19:58:00 INFO scheduler.TaskSetManager: Starting task 2.0 in stage 0.0 (TID 2, ip-172-31-4-178.ap-southeast-2.compute.internal, partition 2,PROCESS_LOCAL, 2076 bytes)
+16/02/06 19:58:00 INFO scheduler.TaskSetManager: Starting task 3.0 in stage 0.0 (TID 3, ip-172-31-4-180.ap-southeast-2.compute.internal, partition 3,PROCESS_LOCAL, 2076 bytes)
+16/02/06 19:58:00 INFO scheduler.TaskSetManager: Starting task 4.0 in stage 0.0 (TID 4, ip-172-31-4-179.ap-southeast-2.compute.internal, partition 4,PROCESS_LOCAL, 2076 bytes)
+16/02/06 19:58:00 INFO scheduler.TaskSetManager: Starting task 5.0 in stage 0.0 (TID 5, ip-172-31-4-178.ap-southeast-2.compute.internal, partition 5,PROCESS_LOCAL, 2227 bytes)
+16/02/06 19:58:00 INFO storage.BlockManagerInfo: Added broadcast_0_piece0 in memory on ip-172-31-4-179.ap-southeast-2.compute.internal:51219 (size: 7.0 KB, free: 4.1 GB)
+16/02/06 19:58:00 INFO storage.BlockManagerInfo: Added broadcast_0_piece0 in memory on ip-172-31-4-178.ap-southeast-2.compute.internal:47924 (size: 7.0 KB, free: 4.1 GB)
+16/02/06 19:58:00 INFO storage.BlockManagerInfo: Added broadcast_0_piece0 in memory on ip-172-31-4-180.ap-southeast-2.compute.internal:50544 (size: 7.0 KB, free: 4.1 GB)
+16/02/06 19:58:00 INFO scheduler.TaskSetManager: Finished task 3.0 in stage 0.0 (TID 3) in 743 ms on ip-172-31-4-180.ap-southeast-2.compute.internal (1/6)
+16/02/06 19:58:00 INFO scheduler.TaskSetManager: Finished task 1.0 in stage 0.0 (TID 1) in 754 ms on ip-172-31-4-179.ap-southeast-2.compute.internal (2/6)
+16/02/06 19:58:00 INFO scheduler.TaskSetManager: Finished task 2.0 in stage 0.0 (TID 2) in 749 ms on ip-172-31-4-178.ap-southeast-2.compute.internal (3/6)
+16/02/06 19:58:00 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 0.0 (TID 0) in 783 ms on ip-172-31-4-180.ap-southeast-2.compute.internal (4/6)
+16/02/06 19:58:00 INFO scheduler.TaskSetManager: Finished task 4.0 in stage 0.0 (TID 4) in 749 ms on ip-172-31-4-179.ap-southeast-2.compute.internal (5/6)
+16/02/06 19:58:03 INFO scheduler.TaskSetManager: Finished task 5.0 in stage 0.0 (TID 5) in 3473 ms on ip-172-31-4-178.ap-southeast-2.compute.internal (6/6)
+16/02/06 19:58:03 INFO scheduler.DAGScheduler: ResultStage 0 (parquet at NativeMethodAccessorImpl.java:-2) finished in 3.515 s
+16/02/06 19:58:03 INFO scheduler.DAGScheduler: Job 0 finished: parquet at NativeMethodAccessorImpl.java:-2, took 3.804254 s
+16/02/06 19:58:03 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool 
+> shiny::runApp('shinyApp')
+Loading required package: shiny
+
+Attaching package: ‘shiny’
+
+The following object is masked from ‘package:SparkR’:
+
+    column
+
+
+Listening on http://127.0.0.1:3762
+16/02/06 19:58:33 INFO storage.MemoryStore: Block broadcast_1 stored as values in memory (estimated size 26.5 KB, free 46.2 KB)
+16/02/06 19:58:33 INFO storage.MemoryStore: Block broadcast_1_piece0 stored as bytes in memory (estimated size 5.6 KB, free 51.8 KB)
+16/02/06 19:58:33 INFO storage.BlockManagerInfo: Added broadcast_1_piece0 in memory on 172.31.5.96:60972 (size: 5.6 KB, free: 511.5 MB)
+16/02/06 19:58:33 INFO spark.SparkContext: Created broadcast 1 from dfToCols at NativeMethodAccessorImpl.java:-2
+16/02/06 19:58:34 INFO parquet.ParquetRelation: Reading Parquet file(s) from hdfs://ec2-52-62-89-3.ap-southeast-2.compute.amazonaws.com:9000/temp/part-r-00000-33afdec9-627f-4192-bfb6-0621b4486645.gz.parquet, hdfs://ec2-52-62-89-3.ap-southeast-2.compute.amazonaws.com:9000/temp/part-r-00001-33afdec9-627f-4192-bfb6-0621b4486645.gz.parquet
+16/02/06 19:58:34 INFO spark.SparkContext: Starting job: dfToCols at NativeMethodAccessorImpl.java:-2
+16/02/06 19:58:34 INFO scheduler.DAGScheduler: Got job 1 (dfToCols at NativeMethodAccessorImpl.java:-2) with 1 output partitions
+16/02/06 19:58:34 INFO scheduler.DAGScheduler: Final stage: ResultStage 1 (dfToCols at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:58:34 INFO scheduler.DAGScheduler: Parents of final stage: List()
+16/02/06 19:58:34 INFO scheduler.DAGScheduler: Missing parents: List()
+16/02/06 19:58:34 INFO scheduler.DAGScheduler: Submitting ResultStage 1 (MapPartitionsRDD[5] at dfToCols at NativeMethodAccessorImpl.java:-2), which has no missing parents
+16/02/06 19:58:34 INFO storage.MemoryStore: Block broadcast_2 stored as values in memory (estimated size 8.5 KB, free 60.3 KB)
+16/02/06 19:58:34 INFO storage.MemoryStore: Block broadcast_2_piece0 stored as bytes in memory (estimated size 4.4 KB, free 64.7 KB)
+16/02/06 19:58:34 INFO storage.BlockManagerInfo: Added broadcast_2_piece0 in memory on 172.31.5.96:60972 (size: 4.4 KB, free: 511.5 MB)
+16/02/06 19:58:34 INFO spark.SparkContext: Created broadcast 2 from broadcast at DAGScheduler.scala:1006
+16/02/06 19:58:34 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 1 (MapPartitionsRDD[5] at dfToCols at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:58:34 INFO scheduler.TaskSchedulerImpl: Adding task set 1.0 with 1 tasks
+16/02/06 19:58:34 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 1.0 (TID 6, ip-172-31-4-178.ap-southeast-2.compute.internal, partition 0,NODE_LOCAL, 2258 bytes)
+16/02/06 19:58:34 INFO storage.BlockManagerInfo: Added broadcast_2_piece0 in memory on ip-172-31-4-178.ap-southeast-2.compute.internal:47924 (size: 4.4 KB, free: 4.1 GB)
+16/02/06 19:58:34 INFO storage.BlockManagerInfo: Added broadcast_1_piece0 in memory on ip-172-31-4-178.ap-southeast-2.compute.internal:47924 (size: 5.6 KB, free: 4.1 GB)
+16/02/06 19:58:35 INFO scheduler.DAGScheduler: ResultStage 1 (dfToCols at NativeMethodAccessorImpl.java:-2) finished in 1.321 s
+16/02/06 19:58:35 INFO scheduler.DAGScheduler: Job 1 finished: dfToCols at NativeMethodAccessorImpl.java:-2, took 1.370036 s
+16/02/06 19:58:35 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 1.0 (TID 6) in 1321 ms on ip-172-31-4-178.ap-southeast-2.compute.internal (1/1)
+16/02/06 19:58:35 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 1.0, whose tasks have all completed, from pool 
+16/02/06 19:58:46 INFO storage.MemoryStore: Block broadcast_3 stored as values in memory (estimated size 88.2 KB, free 152.9 KB)
+16/02/06 19:58:46 INFO storage.MemoryStore: Block broadcast_3_piece0 stored as bytes in memory (estimated size 5.6 KB, free 158.5 KB)
+16/02/06 19:58:46 INFO storage.BlockManagerInfo: Added broadcast_3_piece0 in memory on 172.31.5.96:60972 (size: 5.6 KB, free: 511.5 MB)
+16/02/06 19:58:46 INFO spark.SparkContext: Created broadcast 3 from dfToCols at NativeMethodAccessorImpl.java:-2
+16/02/06 19:58:46 INFO parquet.ParquetRelation: Reading Parquet file(s) from hdfs://ec2-52-62-89-3.ap-southeast-2.compute.amazonaws.com:9000/temp/part-r-00000-33afdec9-627f-4192-bfb6-0621b4486645.gz.parquet, hdfs://ec2-52-62-89-3.ap-southeast-2.compute.amazonaws.com:9000/temp/part-r-00001-33afdec9-627f-4192-bfb6-0621b4486645.gz.parquet
+16/02/06 19:58:46 INFO spark.SparkContext: Starting job: dfToCols at NativeMethodAccessorImpl.java:-2
+16/02/06 19:58:46 INFO scheduler.DAGScheduler: Got job 2 (dfToCols at NativeMethodAccessorImpl.java:-2) with 1 output partitions
+16/02/06 19:58:46 INFO scheduler.DAGScheduler: Final stage: ResultStage 2 (dfToCols at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:58:46 INFO scheduler.DAGScheduler: Parents of final stage: List()
+16/02/06 19:58:46 INFO scheduler.DAGScheduler: Missing parents: List()
+16/02/06 19:58:46 INFO scheduler.DAGScheduler: Submitting ResultStage 2 (MapPartitionsRDD[9] at dfToCols at NativeMethodAccessorImpl.java:-2), which has no missing parents
+16/02/06 19:58:46 INFO storage.MemoryStore: Block broadcast_4 stored as values in memory (estimated size 8.5 KB, free 167.0 KB)
+16/02/06 19:58:46 INFO storage.MemoryStore: Block broadcast_4_piece0 stored as bytes in memory (estimated size 4.4 KB, free 171.4 KB)
+16/02/06 19:58:46 INFO storage.BlockManagerInfo: Added broadcast_4_piece0 in memory on 172.31.5.96:60972 (size: 4.4 KB, free: 511.5 MB)
+16/02/06 19:58:46 INFO spark.SparkContext: Created broadcast 4 from broadcast at DAGScheduler.scala:1006
+16/02/06 19:58:46 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 2 (MapPartitionsRDD[9] at dfToCols at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:58:46 INFO scheduler.TaskSchedulerImpl: Adding task set 2.0 with 1 tasks
+16/02/06 19:58:46 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 2.0 (TID 7, ip-172-31-4-179.ap-southeast-2.compute.internal, partition 0,NODE_LOCAL, 2258 bytes)
+16/02/06 19:58:47 INFO storage.BlockManagerInfo: Added broadcast_4_piece0 in memory on ip-172-31-4-179.ap-southeast-2.compute.internal:51219 (size: 4.4 KB, free: 4.1 GB)
+16/02/06 19:58:48 INFO storage.BlockManagerInfo: Added broadcast_3_piece0 in memory on ip-172-31-4-179.ap-southeast-2.compute.internal:51219 (size: 5.6 KB, free: 4.1 GB)
+16/02/06 19:58:50 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 2.0 (TID 7) in 3186 ms on ip-172-31-4-179.ap-southeast-2.compute.internal (1/1)
+16/02/06 19:58:50 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 2.0, whose tasks have all completed, from pool 
+16/02/06 19:58:50 INFO scheduler.DAGScheduler: ResultStage 2 (dfToCols at NativeMethodAccessorImpl.java:-2) finished in 3.184 s
+16/02/06 19:58:50 INFO scheduler.DAGScheduler: Job 2 finished: dfToCols at NativeMethodAccessorImpl.java:-2, took 3.204896 s
+16/02/06 19:58:57 INFO storage.MemoryStore: Block broadcast_5 stored as values in memory (estimated size 88.2 KB, free 259.6 KB)
+16/02/06 19:58:57 INFO storage.MemoryStore: Block broadcast_5_piece0 stored as bytes in memory (estimated size 5.6 KB, free 265.2 KB)
+16/02/06 19:58:57 INFO storage.BlockManagerInfo: Added broadcast_5_piece0 in memory on 172.31.5.96:60972 (size: 5.6 KB, free: 511.5 MB)
+16/02/06 19:58:57 INFO spark.SparkContext: Created broadcast 5 from dfToCols at NativeMethodAccessorImpl.java:-2
+16/02/06 19:58:57 INFO parquet.ParquetRelation: Reading Parquet file(s) from hdfs://ec2-52-62-89-3.ap-southeast-2.compute.amazonaws.com:9000/temp/part-r-00000-33afdec9-627f-4192-bfb6-0621b4486645.gz.parquet, hdfs://ec2-52-62-89-3.ap-southeast-2.compute.amazonaws.com:9000/temp/part-r-00001-33afdec9-627f-4192-bfb6-0621b4486645.gz.parquet
+16/02/06 19:58:57 INFO spark.SparkContext: Starting job: dfToCols at NativeMethodAccessorImpl.java:-2
+16/02/06 19:58:57 INFO scheduler.DAGScheduler: Got job 3 (dfToCols at NativeMethodAccessorImpl.java:-2) with 1 output partitions
+16/02/06 19:58:57 INFO scheduler.DAGScheduler: Final stage: ResultStage 3 (dfToCols at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:58:57 INFO scheduler.DAGScheduler: Parents of final stage: List()
+16/02/06 19:58:57 INFO scheduler.DAGScheduler: Missing parents: List()
+16/02/06 19:58:57 INFO scheduler.DAGScheduler: Submitting ResultStage 3 (MapPartitionsRDD[13] at dfToCols at NativeMethodAccessorImpl.java:-2), which has no missing parents
+16/02/06 19:58:57 INFO storage.MemoryStore: Block broadcast_6 stored as values in memory (estimated size 8.5 KB, free 273.7 KB)
+16/02/06 19:58:57 INFO storage.MemoryStore: Block broadcast_6_piece0 stored as bytes in memory (estimated size 4.4 KB, free 278.1 KB)
+16/02/06 19:58:57 INFO storage.BlockManagerInfo: Added broadcast_6_piece0 in memory on 172.31.5.96:60972 (size: 4.4 KB, free: 511.5 MB)
+16/02/06 19:58:57 INFO spark.SparkContext: Created broadcast 6 from broadcast at DAGScheduler.scala:1006
+16/02/06 19:58:57 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 3 (MapPartitionsRDD[13] at dfToCols at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:58:57 INFO scheduler.TaskSchedulerImpl: Adding task set 3.0 with 1 tasks
+16/02/06 19:58:57 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 3.0 (TID 8, ip-172-31-4-179.ap-southeast-2.compute.internal, partition 0,NODE_LOCAL, 2258 bytes)
+16/02/06 19:58:57 INFO storage.BlockManagerInfo: Added broadcast_6_piece0 in memory on ip-172-31-4-179.ap-southeast-2.compute.internal:51219 (size: 4.4 KB, free: 4.1 GB)
+16/02/06 19:58:57 INFO storage.BlockManagerInfo: Added broadcast_5_piece0 in memory on ip-172-31-4-179.ap-southeast-2.compute.internal:51219 (size: 5.6 KB, free: 4.1 GB)
+16/02/06 19:58:57 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 3.0 (TID 8) in 389 ms on ip-172-31-4-179.ap-southeast-2.compute.internal (1/1)
+16/02/06 19:58:57 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 3.0, whose tasks have all completed, from pool 
+16/02/06 19:58:57 INFO scheduler.DAGScheduler: ResultStage 3 (dfToCols at NativeMethodAccessorImpl.java:-2) finished in 0.390 s
+16/02/06 19:58:57 INFO scheduler.DAGScheduler: Job 3 finished: dfToCols at NativeMethodAccessorImpl.java:-2, took 0.420050 s
+16/02/06 19:59:05 INFO storage.MemoryStore: Block broadcast_7 stored as values in memory (estimated size 88.2 KB, free 366.3 KB)
+16/02/06 19:59:05 INFO storage.MemoryStore: Block broadcast_7_piece0 stored as bytes in memory (estimated size 5.6 KB, free 372.0 KB)
+16/02/06 19:59:05 INFO storage.BlockManagerInfo: Added broadcast_7_piece0 in memory on 172.31.5.96:60972 (size: 5.6 KB, free: 511.5 MB)
+16/02/06 19:59:05 INFO spark.SparkContext: Created broadcast 7 from dfToCols at NativeMethodAccessorImpl.java:-2
+16/02/06 19:59:05 INFO parquet.ParquetRelation: Reading Parquet file(s) from hdfs://ec2-52-62-89-3.ap-southeast-2.compute.amazonaws.com:9000/temp/part-r-00000-33afdec9-627f-4192-bfb6-0621b4486645.gz.parquet, hdfs://ec2-52-62-89-3.ap-southeast-2.compute.amazonaws.com:9000/temp/part-r-00001-33afdec9-627f-4192-bfb6-0621b4486645.gz.parquet
+16/02/06 19:59:05 INFO spark.SparkContext: Starting job: dfToCols at NativeMethodAccessorImpl.java:-2
+16/02/06 19:59:05 INFO scheduler.DAGScheduler: Got job 4 (dfToCols at NativeMethodAccessorImpl.java:-2) with 1 output partitions
+16/02/06 19:59:05 INFO scheduler.DAGScheduler: Final stage: ResultStage 4 (dfToCols at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:59:05 INFO scheduler.DAGScheduler: Parents of final stage: List()
+16/02/06 19:59:05 INFO scheduler.DAGScheduler: Missing parents: List()
+16/02/06 19:59:05 INFO scheduler.DAGScheduler: Submitting ResultStage 4 (MapPartitionsRDD[17] at dfToCols at NativeMethodAccessorImpl.java:-2), which has no missing parents
+16/02/06 19:59:05 INFO storage.MemoryStore: Block broadcast_8 stored as values in memory (estimated size 8.5 KB, free 380.4 KB)
+16/02/06 19:59:05 INFO storage.MemoryStore: Block broadcast_8_piece0 stored as bytes in memory (estimated size 4.4 KB, free 384.8 KB)
+16/02/06 19:59:05 INFO storage.BlockManagerInfo: Added broadcast_8_piece0 in memory on 172.31.5.96:60972 (size: 4.4 KB, free: 511.5 MB)
+16/02/06 19:59:05 INFO spark.SparkContext: Created broadcast 8 from broadcast at DAGScheduler.scala:1006
+16/02/06 19:59:05 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 4 (MapPartitionsRDD[17] at dfToCols at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:59:05 INFO scheduler.TaskSchedulerImpl: Adding task set 4.0 with 1 tasks
+16/02/06 19:59:05 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 4.0 (TID 9, ip-172-31-4-178.ap-southeast-2.compute.internal, partition 0,NODE_LOCAL, 2258 bytes)
+16/02/06 19:59:05 INFO storage.BlockManagerInfo: Added broadcast_8_piece0 in memory on ip-172-31-4-178.ap-southeast-2.compute.internal:47924 (size: 4.4 KB, free: 4.1 GB)
+16/02/06 19:59:05 INFO storage.BlockManagerInfo: Added broadcast_7_piece0 in memory on ip-172-31-4-178.ap-southeast-2.compute.internal:47924 (size: 5.6 KB, free: 4.1 GB)
+16/02/06 19:59:05 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 4.0 (TID 9) in 449 ms on ip-172-31-4-178.ap-southeast-2.compute.internal (1/1)
+16/02/06 19:59:05 INFO scheduler.DAGScheduler: ResultStage 4 (dfToCols at NativeMethodAccessorImpl.java:-2) finished in 0.446 s
+16/02/06 19:59:05 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 4.0, whose tasks have all completed, from pool 
+16/02/06 19:59:05 INFO scheduler.DAGScheduler: Job 4 finished: dfToCols at NativeMethodAccessorImpl.java:-2, took 0.468056 s
+16/02/06 19:59:08 INFO storage.MemoryStore: Block broadcast_9 stored as values in memory (estimated size 88.2 KB, free 473.0 KB)
+16/02/06 19:59:08 INFO storage.MemoryStore: Block broadcast_9_piece0 stored as bytes in memory (estimated size 5.6 KB, free 478.7 KB)
+16/02/06 19:59:08 INFO storage.BlockManagerInfo: Added broadcast_9_piece0 in memory on 172.31.5.96:60972 (size: 5.6 KB, free: 511.4 MB)
+16/02/06 19:59:08 INFO spark.SparkContext: Created broadcast 9 from dfToCols at NativeMethodAccessorImpl.java:-2
+16/02/06 19:59:08 INFO parquet.ParquetRelation: Reading Parquet file(s) from hdfs://ec2-52-62-89-3.ap-southeast-2.compute.amazonaws.com:9000/temp/part-r-00000-33afdec9-627f-4192-bfb6-0621b4486645.gz.parquet, hdfs://ec2-52-62-89-3.ap-southeast-2.compute.amazonaws.com:9000/temp/part-r-00001-33afdec9-627f-4192-bfb6-0621b4486645.gz.parquet
+16/02/06 19:59:08 INFO spark.SparkContext: Starting job: dfToCols at NativeMethodAccessorImpl.java:-2
+16/02/06 19:59:08 INFO scheduler.DAGScheduler: Got job 5 (dfToCols at NativeMethodAccessorImpl.java:-2) with 1 output partitions
+16/02/06 19:59:08 INFO scheduler.DAGScheduler: Final stage: ResultStage 5 (dfToCols at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:59:08 INFO scheduler.DAGScheduler: Parents of final stage: List()
+16/02/06 19:59:08 INFO scheduler.DAGScheduler: Missing parents: List()
+16/02/06 19:59:08 INFO scheduler.DAGScheduler: Submitting ResultStage 5 (MapPartitionsRDD[21] at dfToCols at NativeMethodAccessorImpl.java:-2), which has no missing parents
+16/02/06 19:59:08 INFO storage.MemoryStore: Block broadcast_10 stored as values in memory (estimated size 8.5 KB, free 487.1 KB)
+16/02/06 19:59:08 INFO storage.MemoryStore: Block broadcast_10_piece0 stored as bytes in memory (estimated size 4.4 KB, free 491.5 KB)
+16/02/06 19:59:08 INFO storage.BlockManagerInfo: Added broadcast_10_piece0 in memory on 172.31.5.96:60972 (size: 4.4 KB, free: 511.4 MB)
+16/02/06 19:59:08 INFO spark.SparkContext: Created broadcast 10 from broadcast at DAGScheduler.scala:1006
+16/02/06 19:59:08 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 5 (MapPartitionsRDD[21] at dfToCols at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:59:08 INFO scheduler.TaskSchedulerImpl: Adding task set 5.0 with 1 tasks
+16/02/06 19:59:08 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 5.0 (TID 10, ip-172-31-4-180.ap-southeast-2.compute.internal, partition 0,NODE_LOCAL, 2258 bytes)
+16/02/06 19:59:08 INFO storage.BlockManagerInfo: Added broadcast_10_piece0 in memory on ip-172-31-4-180.ap-southeast-2.compute.internal:50544 (size: 4.4 KB, free: 4.1 GB)
+16/02/06 19:59:09 INFO storage.BlockManagerInfo: Added broadcast_9_piece0 in memory on ip-172-31-4-180.ap-southeast-2.compute.internal:50544 (size: 5.6 KB, free: 4.1 GB)
+16/02/06 19:59:11 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 5.0 (TID 10) in 3058 ms on ip-172-31-4-180.ap-southeast-2.compute.internal (1/1)
+16/02/06 19:59:11 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 5.0, whose tasks have all completed, from pool 
+16/02/06 19:59:11 INFO scheduler.DAGScheduler: ResultStage 5 (dfToCols at NativeMethodAccessorImpl.java:-2) finished in 3.056 s
+16/02/06 19:59:11 INFO scheduler.DAGScheduler: Job 5 finished: dfToCols at NativeMethodAccessorImpl.java:-2, took 3.077026 s
+16/02/06 19:59:14 INFO storage.MemoryStore: Block broadcast_11 stored as values in memory (estimated size 88.2 KB, free 579.7 KB)
+16/02/06 19:59:14 INFO storage.MemoryStore: Block broadcast_11_piece0 stored as bytes in memory (estimated size 5.6 KB, free 585.3 KB)
+16/02/06 19:59:14 INFO storage.BlockManagerInfo: Added broadcast_11_piece0 in memory on 172.31.5.96:60972 (size: 5.6 KB, free: 511.4 MB)
+16/02/06 19:59:14 INFO spark.SparkContext: Created broadcast 11 from dfToCols at NativeMethodAccessorImpl.java:-2
+16/02/06 19:59:14 INFO parquet.ParquetRelation: Reading Parquet file(s) from hdfs://ec2-52-62-89-3.ap-southeast-2.compute.amazonaws.com:9000/temp/part-r-00000-33afdec9-627f-4192-bfb6-0621b4486645.gz.parquet, hdfs://ec2-52-62-89-3.ap-southeast-2.compute.amazonaws.com:9000/temp/part-r-00001-33afdec9-627f-4192-bfb6-0621b4486645.gz.parquet
+16/02/06 19:59:14 INFO spark.SparkContext: Starting job: dfToCols at NativeMethodAccessorImpl.java:-2
+16/02/06 19:59:14 INFO scheduler.DAGScheduler: Got job 6 (dfToCols at NativeMethodAccessorImpl.java:-2) with 1 output partitions
+16/02/06 19:59:14 INFO scheduler.DAGScheduler: Final stage: ResultStage 6 (dfToCols at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:59:14 INFO scheduler.DAGScheduler: Parents of final stage: List()
+16/02/06 19:59:14 INFO scheduler.DAGScheduler: Missing parents: List()
+16/02/06 19:59:14 INFO scheduler.DAGScheduler: Submitting ResultStage 6 (MapPartitionsRDD[25] at dfToCols at NativeMethodAccessorImpl.java:-2), which has no missing parents
+16/02/06 19:59:14 INFO storage.MemoryStore: Block broadcast_12 stored as values in memory (estimated size 8.5 KB, free 593.8 KB)
+16/02/06 19:59:14 INFO storage.MemoryStore: Block broadcast_12_piece0 stored as bytes in memory (estimated size 4.4 KB, free 598.2 KB)
+16/02/06 19:59:14 INFO storage.BlockManagerInfo: Added broadcast_12_piece0 in memory on 172.31.5.96:60972 (size: 4.4 KB, free: 511.4 MB)
+16/02/06 19:59:14 INFO spark.SparkContext: Created broadcast 12 from broadcast at DAGScheduler.scala:1006
+16/02/06 19:59:14 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 6 (MapPartitionsRDD[25] at dfToCols at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:59:14 INFO scheduler.TaskSchedulerImpl: Adding task set 6.0 with 1 tasks
+16/02/06 19:59:14 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 6.0 (TID 11, ip-172-31-4-178.ap-southeast-2.compute.internal, partition 0,NODE_LOCAL, 2258 bytes)
+16/02/06 19:59:14 INFO storage.BlockManagerInfo: Added broadcast_12_piece0 in memory on ip-172-31-4-178.ap-southeast-2.compute.internal:47924 (size: 4.4 KB, free: 4.1 GB)
+16/02/06 19:59:14 INFO storage.BlockManagerInfo: Added broadcast_11_piece0 in memory on ip-172-31-4-178.ap-southeast-2.compute.internal:47924 (size: 5.6 KB, free: 4.1 GB)
+16/02/06 19:59:14 INFO scheduler.DAGScheduler: ResultStage 6 (dfToCols at NativeMethodAccessorImpl.java:-2) finished in 0.425 s
+16/02/06 19:59:14 INFO scheduler.DAGScheduler: Job 6 finished: dfToCols at NativeMethodAccessorImpl.java:-2, took 0.441535 s
+16/02/06 19:59:14 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 6.0 (TID 11) in 424 ms on ip-172-31-4-178.ap-southeast-2.compute.internal (1/1)
+16/02/06 19:59:14 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 6.0, whose tasks have all completed, from pool 
+16/02/06 19:59:23 INFO storage.MemoryStore: Block broadcast_13 stored as values in memory (estimated size 88.2 KB, free 686.4 KB)
+16/02/06 19:59:23 INFO storage.MemoryStore: Block broadcast_13_piece0 stored as bytes in memory (estimated size 5.6 KB, free 692.1 KB)
+16/02/06 19:59:23 INFO storage.BlockManagerInfo: Added broadcast_13_piece0 in memory on 172.31.5.96:60972 (size: 5.6 KB, free: 511.4 MB)
+16/02/06 19:59:23 INFO spark.SparkContext: Created broadcast 13 from dfToCols at NativeMethodAccessorImpl.java:-2
+16/02/06 19:59:23 INFO parquet.ParquetRelation: Reading Parquet file(s) from hdfs://ec2-52-62-89-3.ap-southeast-2.compute.amazonaws.com:9000/temp/part-r-00000-33afdec9-627f-4192-bfb6-0621b4486645.gz.parquet, hdfs://ec2-52-62-89-3.ap-southeast-2.compute.amazonaws.com:9000/temp/part-r-00001-33afdec9-627f-4192-bfb6-0621b4486645.gz.parquet
+16/02/06 19:59:23 INFO spark.SparkContext: Starting job: dfToCols at NativeMethodAccessorImpl.java:-2
+16/02/06 19:59:23 INFO scheduler.DAGScheduler: Got job 7 (dfToCols at NativeMethodAccessorImpl.java:-2) with 1 output partitions
+16/02/06 19:59:23 INFO scheduler.DAGScheduler: Final stage: ResultStage 7 (dfToCols at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:59:23 INFO scheduler.DAGScheduler: Parents of final stage: List()
+16/02/06 19:59:23 INFO scheduler.DAGScheduler: Missing parents: List()
+16/02/06 19:59:23 INFO scheduler.DAGScheduler: Submitting ResultStage 7 (MapPartitionsRDD[29] at dfToCols at NativeMethodAccessorImpl.java:-2), which has no missing parents
+16/02/06 19:59:23 INFO storage.MemoryStore: Block broadcast_14 stored as values in memory (estimated size 8.5 KB, free 700.5 KB)
+16/02/06 19:59:23 INFO storage.MemoryStore: Block broadcast_14_piece0 stored as bytes in memory (estimated size 4.4 KB, free 704.9 KB)
+16/02/06 19:59:23 INFO storage.BlockManagerInfo: Added broadcast_14_piece0 in memory on 172.31.5.96:60972 (size: 4.4 KB, free: 511.4 MB)
+16/02/06 19:59:23 INFO spark.SparkContext: Created broadcast 14 from broadcast at DAGScheduler.scala:1006
+16/02/06 19:59:23 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 7 (MapPartitionsRDD[29] at dfToCols at NativeMethodAccessorImpl.java:-2)
+16/02/06 19:59:23 INFO scheduler.TaskSchedulerImpl: Adding task set 7.0 with 1 tasks
+16/02/06 19:59:23 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 7.0 (TID 12, ip-172-31-4-178.ap-southeast-2.compute.internal, partition 0,NODE_LOCAL, 2258 bytes)
+16/02/06 19:59:23 INFO storage.BlockManagerInfo: Added broadcast_14_piece0 in memory on ip-172-31-4-178.ap-southeast-2.compute.internal:47924 (size: 4.4 KB, free: 4.1 GB)
+16/02/06 19:59:23 INFO storage.BlockManagerInfo: Added broadcast_13_piece0 in memory on ip-172-31-4-178.ap-southeast-2.compute.internal:47924 (size: 5.6 KB, free: 4.1 GB)
+16/02/06 19:59:24 INFO scheduler.DAGScheduler: ResultStage 7 (dfToCols at NativeMethodAccessorImpl.java:-2) finished in 1.813 s
+16/02/06 19:59:24 INFO scheduler.DAGScheduler: Job 7 finished: dfToCols at NativeMethodAccessorImpl.java:-2, took 1.827329 s
+16/02/06 19:59:24 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 7.0 (TID 12) in 1811 ms on ip-172-31-4-178.ap-southeast-2.compute.internal (1/1)
+16/02/06 19:59:24 INFO scheduler.TaskSchedulerImpl: Removed TaskSet 7.0, whose tasks have all completed, from pool 
